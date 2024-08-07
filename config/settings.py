@@ -23,11 +23,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "users",
-    "materials",
-    "django_filters",
-    "rest_framework_simplejwt",
-    "drf_yasg",
-    'django_celery_beat',
 ]
 
 REST_FRAMEWORK = {
