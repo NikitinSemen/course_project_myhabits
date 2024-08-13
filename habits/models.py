@@ -1,7 +1,7 @@
 from django.db import models
 from rest_framework.exceptions import ValidationError
 
-from habits.validators import validate_positive
+from habits.validators import validate_positive, validate_time_habit
 from users.models import User
 
 
@@ -12,6 +12,7 @@ class Habit(models.Model):
         ("every_two_days", "раз в два дня"),
         ("once_a_week", "раз в неделю"),
     ]
+    time = models.PositiveSmallIntegerField(verbose_name="Время", validators=[validate_time_habit])
     user = models.ForeignKey(
         User, verbose_name="Пользователь", on_delete=models.CASCADE
     )
@@ -34,12 +35,12 @@ class Habit(models.Model):
         verbose_name="Периодичность",
     )
     reward = models.CharField(verbose_name="Вознаграждение", null=True, blank=True)
-    time_to_complete = models.PositiveSmallIntegerField(validators=[validate_positive],
-                                                        verbose_name="время на выполнение привычки", default=120
-                                                        )
+    time_to_complete = models.PositiveSmallIntegerField(
+        validators=[validate_positive],
+        verbose_name="время на выполнение привычки",
+        default=120,
+    )
     public = models.BooleanField(verbose_name="Публичность привычки", default=False)
-
-
 
     def __str__(self):
         return f"Я буду {self.action} {self.periodicity} в {self.place}"

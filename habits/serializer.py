@@ -19,10 +19,13 @@ class HabitSerializer(ModelSerializer):
             raise ValidationError(
                 "Необходимо заполнить или Вознаграждение за привычку или приятную привычку"
             )
-        if attrs.get('sign_pleasant_habit'):
-            if attrs.get('reward') is not None or attrs.get('related_habit') is not None:
+        if attrs.get("sign_pleasant_habit"):
+            if (
+                attrs.get("reward") is not None
+                or attrs.get("related_habit") is not None
+            ):
                 raise ValidationError(
-                    "У приятной привычки не может быть вознаграждений или приятной привычки")
+                    "У приятной привычки не может быть вознаграждений или приятной привычки"
+                )
 
         return attrs
-

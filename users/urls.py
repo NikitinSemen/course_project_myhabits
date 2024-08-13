@@ -1,10 +1,9 @@
 from django.urls import path
 from rest_framework.permissions import AllowAny
-from rest_framework_simplejwt.views import (TokenObtainPairView,
-                                            TokenRefreshView)
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from users.apps import UsersConfig
-from users.views import UserCreateApiView
+from users.views import UserCreateApiView, UserUpdateApiView
 
 app_name = UsersConfig.name
 urlpatterns = [
@@ -19,4 +18,5 @@ urlpatterns = [
         name="token_refresh",
     ),
     path("register/", UserCreateApiView.as_view(), name="register"),
+    path("<int:pk>/update/", UserUpdateApiView.as_view(), name="update"),
 ]

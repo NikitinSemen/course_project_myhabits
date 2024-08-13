@@ -3,6 +3,7 @@ from rest_framework import generics
 from .models import Habit
 from .pagination import CustomPagination
 from .serializer import HabitSerializer
+from .tasks import add_habit_to_schedule
 
 
 class HabitCreateApiView(generics.CreateAPIView):
@@ -10,12 +11,17 @@ class HabitCreateApiView(generics.CreateAPIView):
     queryset = Habit.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        habit = serializer.save(user=self.request.user)
+        add_habit_to_schedule(habit.id)
 
 
 class HabitUpdateApiView(generics.UpdateAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
+
+    def perform_update(self, serializer):
+        habit = serializer.save
+        add_habit_to_schedule(habit.id)
 
 
 class HabitRetrieveApiView(generics.RetrieveAPIView):

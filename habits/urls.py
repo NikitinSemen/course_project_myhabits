@@ -1,9 +1,13 @@
 from django.urls import path
 
 from habits.apps import HabitsConfig
-from habits.views import (HabitCreateApiView, HabitDestroyApiView,
-                          HabitListApiView, HabitRetrieveApiView,
-                          HabitUpdateApiView)
+from habits.views import (
+    HabitCreateApiView,
+    HabitDestroyApiView,
+    HabitListApiView,
+    HabitRetrieveApiView,
+    HabitUpdateApiView,
+)
 
 app_name = HabitsConfig.name
 urlpatterns = [
