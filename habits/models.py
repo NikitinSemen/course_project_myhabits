@@ -12,7 +12,7 @@ class Habit(models.Model):
         ("every_two_days", "раз в два дня"),
         ("once_a_week", "раз в неделю"),
     ]
-    time = models.PositiveSmallIntegerField(verbose_name="Время", validators=[validate_time_habit])
+    time = models.PositiveSmallIntegerField(verbose_name="Время")
     user = models.ForeignKey(
         User, verbose_name="Пользователь", on_delete=models.CASCADE
     )
@@ -36,7 +36,6 @@ class Habit(models.Model):
     )
     reward = models.CharField(verbose_name="Вознаграждение", null=True, blank=True)
     time_to_complete = models.PositiveSmallIntegerField(
-        validators=[validate_positive],
         verbose_name="время на выполнение привычки",
         default=120,
     )

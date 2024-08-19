@@ -8,8 +8,10 @@ from .services import send_telegram_message
 
 @shared_task
 def send_message_telegram(user_tg_id, habit_action, habit_place, habit_time):
-    message = (f"Привет!\nТы просил напомнить о твоей новой привычке\n я буду {habit_action} в "
-               f"{habit_time}часов в {habit_place}")
+    message = (
+        f"Привет!\nТы просил напомнить о твоей новой привычке\n я буду {habit_action} в "
+        f"{habit_time}часов в {habit_place}"
+    )
     send_telegram_message(message, user_tg_id)
 
 

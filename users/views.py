@@ -20,6 +20,7 @@ class UserCreateApiView(CreateAPIView):
 
 
 class UserUpdateApiView(UpdateAPIView):
+    """Редактирование пользователя"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAuthenticated, IsOwner)
