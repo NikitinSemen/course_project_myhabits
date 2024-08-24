@@ -1,6 +1,8 @@
 from django.core.exceptions import ValidationError
 
 
+
+
 def validate_positive(value):
     if value >= 120 or value < 0:
         raise ValidationError(f"Время на привычку не должно быть больше 120 сек.")
@@ -34,3 +36,13 @@ class PleasantHabitValidator:
                 raise ValidationError(
                     "Нельзя указать награду и связанную  привычку для приятной привычки"
                 )
+
+
+class RelatedHabitValidator:
+    def __init__(self, field):
+        self.field = field
+
+    def __call__(self, value):
+        baba = self.field
+
+        print(value.getattr("related_habit"))

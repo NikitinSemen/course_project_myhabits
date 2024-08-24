@@ -8,7 +8,7 @@ from habits.validators import (
     validate_time_habit,
     validate_positive,
     RewardValidator,
-    PleasantHabitValidator,
+    PleasantHabitValidator, RelatedHabitValidator,
 )
 from users.serializer import UserSerializer
 
@@ -24,4 +24,14 @@ class HabitSerializer(ModelSerializer):
         validators = [
             RewardValidator(fields=["reward", "related_habit"]),
             PleasantHabitValidator(field="sign_pleasant_habit"),
+            RelatedHabitValidator(field="related_habit")
         ]
+
+    def validate(self, data):
+        if data.get('related_habit'):
+            habit = Habit.objects.get(pk=data.get('related_habit').pk)
+            if not habit.pleasant_habit:
+                raise ValidationError('В связанные привычки могут попадать только привычки с признаком приятной '
+                                      'привычки')
+
+        return data

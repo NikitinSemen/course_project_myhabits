@@ -27,6 +27,7 @@ class Habit(models.Model):
         verbose_name="Связанная привычка",
         null=True,
         blank=True,
+        related_name="related_habits"
     )
     periodicity = models.CharField(
         max_length=20,
@@ -40,6 +41,7 @@ class Habit(models.Model):
         default=120,
     )
     public = models.BooleanField(verbose_name="Публичность привычки", default=False)
+    tg_id = models.CharField(verbose_name="айди телеграмм", null=True, blank=True)
 
     def __str__(self):
         return f"Я буду {self.action} {self.periodicity} в {self.place}"
